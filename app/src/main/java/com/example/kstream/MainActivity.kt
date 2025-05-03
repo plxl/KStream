@@ -1,12 +1,9 @@
 package com.example.kstream
 
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.camera.core.CameraSelector
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -29,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,13 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.kstream.ui.theme.KStreamTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -134,7 +127,7 @@ fun ScreenMain(modifier: Modifier = Modifier) {
                 )
             )
         }
-        var selected by remember { mutableStateOf(1) }
+        var selected by remember { mutableIntStateOf(1) }
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -176,15 +169,15 @@ fun ScreenLaunchServer() {
 @Composable
 fun ScreenLaunchClient() {
     var btnText: String by remember { mutableStateOf("Connect") }
-    var ipAddr: String by remember { mutableStateOf("192.168.245.43") }
+    var ipAddress: String by remember { mutableStateOf("192.168.245.43") }
     Row(
         modifier = Modifier
             .fillMaxWidth()
     )
     {
         TextField(
-            value = ipAddr,
-            onValueChange = { ipAddr = it },
+            value = ipAddress,
+            onValueChange = { ipAddress = it },
             textStyle = MaterialTheme.typography.bodyLarge,
             singleLine = true,
         )
